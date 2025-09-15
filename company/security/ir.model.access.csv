@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_office_department,office.department,model_office_department,,1,1,1,1
+access_office_employee,office.employee,model_office_employee,,1,1,1,1
+access_office_project,office.project,model_office_project,,1,1,1,1
+access_office_task,office.task,model_office_task,,1,1,1,1
+access_office_asset,office.asset,model_office_asset,,1,1,1,1
+access_company_purchase_user,access.company.purchase.user,model_company_purchase,,1,1,1,1
+access_company_purchase_line_user,access.company.purchase.line.user,model_company_purchase_line,,1,1,1,1
+access_user_concern_user,user.concern.user,model_user_concern,base.group_user,1,1,1,0
+access_user_concern_admin,user.concern.admin,model_user_concern,base.group_system,1,1,1,1
+access_user_menus,user.menus,model_user_menus,,1,1,1,1
+

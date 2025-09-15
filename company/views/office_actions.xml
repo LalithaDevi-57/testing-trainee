@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_office_department" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="res_model">office.department</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <record id="action_office_employee" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="res_model">office.employee</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <record id="action_office_project" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">office.project</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <record id="action_office_task" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">office.task</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <record id="action_office_asset" model="ir.actions.act_window">
+        <field name="name">Assets</field>
+        <field name="res_model">office.asset</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+    <record id="action_company_purchase" model="ir.actions.act_window">
+        <field name="name">Custom Purchase</field>
+        <field name="res_model">company.purchase</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_user_concerns" model="ir.actions.act_window">
+        <field name="name">User Concerns</field>
+        <field name="res_model">user.concern</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_user_concern_own" model="ir.actions.act_window">
+        <field name="name">My Concerns</field>
+        <field name="res_model">user.concern</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_user_concern_all" model="ir.actions.act_window">
+        <field name="name">All Concerns</field>
+        <field name="res_model">user.concern</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_user_concern_own" model="ir.actions.act_window">
+        <field name="name">My Concerns</field>
+        <field name="res_model">user.concern</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

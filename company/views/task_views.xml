@@ -1,0 +1,69 @@
+<odoo>
+    <!-- Form View with 3 Tabs -->
+    <record id="view_office_task_form" model="ir.ui.view">
+        <field name="name">office.task.form</field>
+        <field name="model">office.task</field>
+        <field name="arch" type="xml">
+            <form string="Office Task">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="project_id"/>
+                        <field name="assigned_to"/>
+                        <field name="deadline"/>
+                        <field name="status"/>
+                    </group>
+                    <notebook>
+                        <page string="Task Info">
+                            <group>
+                                <field name="name"/>
+                                <field name="project_id"/>
+                            </group>
+                        </page>
+                        <page string="Assignment">
+                            <group>
+                                <field name="assigned_to"/>
+                                <field name="deadline"/>
+                            </group>
+                        </page>
+                        <page string="Progress">
+                            <group>
+                                <field name="status"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_office_task_tree" model="ir.ui.view">
+        <field name="name">office.task.tree</field>
+        <field name="model">office.task</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="assigned_to"/>
+                <field name="deadline"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_office_task_search" model="ir.ui.view">
+        <field name="name">office.task.search</field>
+        <field name="model">office.task</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Task Name"/>
+                <field name="project_id"/>
+                <field name="assigned_to"/>
+                <filter string="Draft" name="filter_draft" domain="[('status','=','draft')]"/>
+                <filter string="In Progress" name="filter_in_progress" domain="[('status','=','in_progress')]"/>
+                <filter string="Done" name="filter_done" domain="[('status','=','done')]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

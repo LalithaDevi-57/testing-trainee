@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Root menu -->
+    <menuitem id="menu_office_root" name="Office Management"/>
+
+    <!-- Main menu under root -->
+    <menuitem id="menu_company_main" name="Office" parent="menu_office_root" sequence="1"/>
+    <!-- First level submenus under 'Office' -->
+    <menuitem id="menu_office_department"
+              name="Departments"
+              parent="menu_company_main"
+              action="action_office_department"
+              sequence="2"/>
+
+    <menuitem id="menu_office_employee"
+              name="Employees"
+              parent="menu_company_main"
+              action="action_office_employee"
+              sequence="3"/>
+
+    <menuitem id="menu_office_project"
+              name="Projects"
+              parent="menu_company_main"
+              action="action_office_project"
+              sequence="4"/>
+
+    <menuitem id="menu_office_child" name="Task" parent="menu_office_root" sequence="5"/>
+
+
+    <menuitem id="menu_office_task"
+              name="Task"
+              parent="menu_office_child"
+              action="action_office_task"
+              sequence="6"/>
+
+    <menuitem id="menu_office_asset"
+              name="Assets"
+              parent="menu_office_child"
+              action="action_office_asset"
+              sequence="7"/>
+
+    <menuitem id="menu_office_clients"
+              name="Departments"
+              parent="menu_office_root"
+              action="action_office_department"
+              sequence="8"/>
+
+    <menuitem id="menu_office_income"
+              name="Employees"
+              parent="menu_office_root"
+              action="action_office_employee"
+              sequence="9"/>
+
+    <menuitem id="menu_office_development"
+              name="Projects"
+              parent="menu_office_root"
+              action="action_office_project"
+              sequence="10"/>
+    <menuitem id="menu_company_purchase_root" name="Custom Purchase"/>
+
+    <menuitem id="menu_company_purchase_main"
+              name="Purchase Orders"
+              parent="menu_office_root"
+              action="action_company_purchase"/>
+
+     <menuitem id="menu_user_concern_root" name="User Concerns" parent="menu_office_root" sequence="5"/>
+
+    <!-- Admin menu -->
+    <menuitem id="menu_user_concern_all"
+              name="All Concerns"
+              parent="menu_user_concern_root"
+              action="action_user_concern_all"
+              groups="base.group_system"
+              sequence="1"/>
+
+    <!-- User menu -->
+    <menuitem id="menu_user_concern_own"
+              name="My Concerns"
+              parent="menu_user_concern_root"
+              action="action_user_concern_own"
+              groups="base.group_user"
+              sequence="2"/>
+
+
+</odoo>

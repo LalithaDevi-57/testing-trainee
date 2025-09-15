@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!-- Partner -->
+        <record id="partner_lally" model="res.partner">
+            <field name="name">Lally</field>
+        </record>
+
+        <!-- User: Lally -->
+        <record id="user_lally" model="res.users">
+            <field name="name">Lally</field>
+            <field name="login">lally</field>
+            <field name="password">lally@123</field>
+            <field name="partner_id" ref="partner_lally"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[
+                (4, ref('company.group_menu_departments')),
+                (4, ref('company.group_menu_employees')),
+                (4, ref('company.group_menu_projects'))
+            ]"/>
+        </record>
+    </data>
+</odoo>

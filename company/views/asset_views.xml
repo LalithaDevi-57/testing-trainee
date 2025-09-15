@@ -1,0 +1,65 @@
+<odoo>
+    <!-- Form View with 3 Tabs -->
+    <record id="view_office_asset_form" model="ir.ui.view">
+        <field name="name">office.asset.form</field>
+        <field name="model">office.asset</field>
+        <field name="arch" type="xml">
+            <form string="Office Asset">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="asset_type"/>
+                        <field name="purchase_date"/>
+                        <field name="value"/>
+                    </group>
+                    <notebook>
+                        <page string="General Info">
+                            <group>
+                                <field name="name"/>
+                                <field name="asset_type"/>
+                            </group>
+                        </page>
+                        <page string="Financial">
+                            <group>
+                                <field name="purchase_date"/>
+                                <field name="value"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+<!--                            <group>-->
+<!--                                <label string="Extra notes or description can be added here." class="o_form_label"/>-->
+<!--                            </group>-->
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     Tree View
+    <record id="view_office_asset_tree" model="ir.ui.view">
+        <field name="name">office.asset.tree</field>
+        <field name="model">office.asset</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="asset_type"/>
+                <field name="purchase_date"/>
+                <field name="value"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_office_asset_search" model="ir.ui.view">
+        <field name="name">office.asset.search</field>
+        <field name="model">office.asset</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Asset Name"/>
+                <field name="asset_type"/>
+                <field name="purchase_date"/>
+            </search>
+        </field>
+    </record>
+</odoo>

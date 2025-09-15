@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_user_concern_tree" model="ir.ui.view">
+        <field name="name">user.concern.tree</field>
+        <field name="model">user.concern</field>
+        <field name="arch" type="xml">
+            <tree string="User Concerns">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_user_concern" model="ir.actions.act_window">
+        <field name="name">User Concerns</field>
+        <field name="res_model">user.concern</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+    </record>
+    <menuitem id="menu_user_concern_root"
+              name="User Concerns"
+              parent="menu_office_root"
+              action="action_user_concern"/>
+
+</odoo>

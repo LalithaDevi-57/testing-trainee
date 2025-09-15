@@ -1,0 +1,78 @@
+<odoo>
+    <record id="view_company_purchase_form" model="ir.ui.view">
+        <field name="name">company.purchase.form</field>
+        <field name="model">company.purchase</field>
+        <field name="arch" type="xml">
+            <form string="Custom Purchase Order">
+                <header>
+                    <button name="action_create_real"
+                            string="Data Copy"
+                            type="object"
+                            class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="partner_id" domain="[('supplier_rank', '>', 0)]"/>
+                        <field name="date_order"/>
+                        <field name="real_purchase_order_id" readonly="1" options="{'no_create': True}"/>
+                    </group>
+                    <notebook>
+                        <page string="Order Lines">
+                            <field name="line_ids">
+                                <tree editable="bottom" create="true" edit="true">
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_purchase_order_form_inherit_approve_button" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.approve.button</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <field name="approved" invisible="1"/>
+                <field name="show_approve_button" invisible="1"/>
+                <field name="show_confirm_button" invisible="1"/>
+            </xpath>
+
+            <!-- Replace the Confirm button and put both Approve and Confirm with conditional attrs -->
+            <xpath expr="//header/button[@name='button_confirm']" position="replace">
+                <!-- Approve Button: visible only if show_approve_button = True -->
+                <button name="action_approve"
+                        type="object"
+                        string="Approve"
+                        class="btn-primary"
+                        invisible="not show_approve_button"
+                />
+                <!-- Confirm Button: visible only if show_confirm_button = True -->
+                <button name="button_confirm"
+                        type="object"
+                        string="Confirm Order"
+                        class="btn-success"
+                        invisible="not show_confirm_button"
+                />
+            </xpath>
+            <xpath expr="//header/button[@name='button_confirm']" position="attributes">
+                <attribute name="invisible">(state in['purchase'])</attribute>
+            </xpath>
+            <xpath expr="//header/button[@id='draft_confirm']" position="attributes">
+                <attribute name="invisible">(state in['draft','purchase']or approved)</attribute>
+            </xpath>
+
+            <xpath expr="//header/field[@name='state']" position="replace">
+                <field name="state" widget="statusbar"
+                       statusbar_visible="draft,sent,approved,purchase"
+                       statusbar_status="draft"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

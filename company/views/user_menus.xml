@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_user_menus_tree" model="ir.ui.view">
+        <field name="name">user.menus.tree</field>
+        <field name="model">user.menus</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_user_menus_form" model="ir.ui.view">
+        <field name="name">user.menus.form</field>
+        <field name="model">user.menus</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                    <footer>
+                        <button name="action_mark_done" string="Mark Done" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_user_menus" model="ir.actions.act_window">
+        <field name="name">User Menus</field>
+        <field name="res_model">user.menus</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Optional: Create a parent menu if not exists -->
+    <menuitem id="menu_office_root" name="Office"/>
+
+    <menuitem id="menu_user_menus" name="User Menus"
+              action="action_user_menus" parent="menu_office_root" sequence="20"/>
+
+</odoo>
