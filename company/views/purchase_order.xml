@@ -30,11 +30,9 @@
             </xpath>
 
             <xpath expr="//header/button[@name='button_confirm']" position="attributes">
-                <attribute name="invisible">[ '|',
-                ('show_confirm_button', '=', True),
-                ('state', 'in', ['purchase', 'done', 'cancel'])]</attribute>
+                <attribute name="invisible">(state in ['draft','purchase']or approved)</attribute>
             </xpath>
-             <xpath expr="//header/button[@id='draft_confirm']" position="attributes">
+            <xpath expr="//header/button[@id='draft_confirm']" position="attributes">
                 <attribute name="invisible">(state in['purchase'])</attribute>
             </xpath>
 

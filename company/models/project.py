@@ -14,6 +14,7 @@ class OfficeProject(models.Model):
     employee_file = fields.Binary(string="Upload File")
     employee_file_name = fields.Char(string="File Name")
 
+
     task_ids = fields.One2many("office.task", "project_id", string="Tasks")
 
     def _default_start_date(self):

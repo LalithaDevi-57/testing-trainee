@@ -23,15 +23,6 @@ class PurchaseOrder(models.Model):
         ondelete={"approved": "set default"},
     )
     approved = fields.Boolean(string="Approved", default=False)
-    #
-    # show_approve_button = fields.Boolean(
-    #     string="Show Approve Button",
-    #     compute="_compute_show_approve_button"
-    # )
-    # show_confirm_button = fields.Boolean(
-    #     string="Show Confirm Button",
-    #     compute="_compute_show_confirm_button"
-    # )
     @api.depends("amount_total", "approved")
     def _compute_show_approve_button(self):
         for order in self:
@@ -56,8 +47,7 @@ class PurchaseOrder(models.Model):
     @api.depends("amount_total", "approved", "state")
     def _compute_buttons(self):
         for order in self:
-            # hide both after confirmation
-            if order.state in ("purchase", "done", "cancel"):
+            if order.state in ("purchase",):
                 order.show_approve_button = False
                 order.show_confirm_button = False
             else:
@@ -74,5 +64,8 @@ class PurchaseOrder(models.Model):
 
     def button_confirm(self):
         for order in self:
-                order.write({"state":"purchase"})
+            if order.amount_total >= 5000 and not order.approved:
+                raise UserError(_("This Purchase Order must be approved before confirmation."))
+            if order.state == "approved":
+                order.state = "purchase"
         return super().button_confirm()

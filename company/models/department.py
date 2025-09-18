@@ -9,6 +9,8 @@ class OfficeDepartment(models.Model):
     manager_id = fields.Many2one("office.employee", string="Manager")
     location = fields.Char(string="Location")
     join_data = fields.Date(string="Join Date")
+    employee_file = fields.Binary(string="Upload File")
+    employee_file_name = fields.Char(string="File Name")
 
     employee_ids = fields.One2many("office.employee", "department_id", string="Employees")
 
