@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Report Template -->
+    <template id="car_report_template1">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="car.car_layout"> <!-- Custom Layout -->
+                    <div class="page">
+                        <h2 style="text-align:center;">Car Model Report</h2>
+                        <table class="table table-sm o_main_table" style="width:100%; border:1px solid #000;">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Brand</th>
+                                    <th>Model Year</th>
+                                    <th>Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <t t-esc="doc.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.brand"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.model_year"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.total_amount"/>
+                                        <t t-esc="doc.currency_id.symbol"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Car Lines</h3>
+                        <table class="table table-sm o_main_table" style="width:100%; border:1px solid #000;">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.line_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="line.product_name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.quantity"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.price"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.total"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+<!-- Custom Layout -->
+<template id="car_layout">
+    <div style="position: absolute; top: 25%; left: 15%; z-index: 0; opacity: 0.04;">
+        <img t-att-src="'/car/static/src/img/invoice.png'"
+             style="width: 600px; height: auto;" alt="Watermark"/>
+    </div>
+    <div class="header">
+        <h2 style="text-align:center;">My Custom Car Layout</h2>
+    </div>
+    <div class="footer" style="font-size:10px; text-align:center; border-top:1px solid #ccc; padding-top:5px;">
+        <p>Car Company Ltd. | 123 Main Street, New York, NY</p>
+        <p>Email: info@carcompany.com | Phone: +1 234 567 8901</p>
+        <p>Page
+            <span class="page"/>
+        </p>
+    </div>
+    <div class="article" style="margin-bottom:15px;">
+        <t t-raw="0"/>
+        <div class="static-article" style="margin-top:30px; font-size:11px; color:#333;">
+            <h4>About this Report</h4>
+            <p>This report contains a summary of car models along with their related details, pricing, and product
+                lines. All data is confidential and intended for internal use only.
+            </p>
+
+            <h4>Terms And Conditions</h4>
+            <p>All car specifications and prices are subject to change without notice. Please contact the sales
+                department for the most updated information.
+            </p>
+        </div>
+    </div>
+
+</template>
+
+    <!-- Report Action -->
+    <record id="action_report_car_custom" model="ir.actions.report">
+        <field name="name">Car Report</field>
+        <field name="model">car.model</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">car.car_report_template1</field>
+        <field name="report_file">car.car_report_template1</field>
+        <field name="binding_model_id" ref="model_car_model"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Car Report - %s' % (object.name)</field>
+    </record>
+</odoo>

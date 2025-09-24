@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Tree view for Archived Car -->
+    <record id="view_archived_car_model_tree" model="ir.ui.view">
+        <field name="name">archived.car.model.tree</field>
+        <field name="model">archived.car.model</field>
+        <field name="arch" type="xml">
+            <tree string="Archived Cars">
+                <field name="name"/>
+                <field name="brand"/>
+                <field name="model_year"/>
+                <field name="price"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for Archived Car -->
+    <record id="view_archived_car_model_form" model="ir.ui.view">
+        <field name="name">archived.car.model.form</field>
+        <field name="model">archived.car.model</field>
+        <field name="arch" type="xml">
+            <form string="Archived Car">
+                <sheet>
+                    <div class="oe_class">
+                        <h1>
+                            <field name="sequence_no"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="brand"/>
+                        <field name="model_year"/>
+                        <field name="price"/>
+                        <field name="description"/>
+                        <field name="source_car_id"/>
+                        <field name="currency_id"/>
+                        <field name="total_amount" readonly="1"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Archived Car Lines">
+                            <field name="line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_name"/>
+                                    <field name="quantity"/>
+                                    <field name="price"/>
+                                    <field name="total" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search view for Archived Car -->
+    <record id="view_archived_car_model_search" model="ir.ui.view">
+        <field name="name">archived.car.model.search</field>
+        <field name="model">archived.car.model</field>
+        <field name="arch" type="xml">
+            <search string="Search Archived Cars">
+                <field name="name"/>
+                <field name="brand"/>
+                <field name="model_year"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action to open the Archived Car model -->
+    <record id="action_archived_car_model" model="ir.actions.act_window">
+        <field name="name">Archived Cars</field>
+        <field name="res_model">archived.car.model</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first archived car
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu items -->
+
+    <menuitem id="menu_archived_car" name="Manage Archived Cars"
+              parent="menu_car_root"
+              action="action_archived_car_model"/>
+</odoo>

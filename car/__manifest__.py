@@ -1,0 +1,23 @@
+{
+    'name': 'Car Management',
+    'version': '1.0',
+    'category': 'Custom',
+    'summary': 'Manage car models, prices, and reporting',
+    'author': 'Your Name',
+    'depends': ['base','account','purchase','product'],
+    'data': [
+        'data/sequence.xml',
+        # 'data/sequence_update.xml',
+        'security/ir.model.access.csv',
+        'report/car_report.xml',
+        'views/car_model_views.xml',
+        'views/car_model_menu.xml',
+        'views/car_product.xml',
+        'views/settings_in.xml',
+        'views/car_archive.xml',
+        'wizards/car_wizard.xml',
+        'views/buttons_add.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

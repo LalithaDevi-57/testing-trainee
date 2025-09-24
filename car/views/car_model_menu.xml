@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_car_root" name="Car Management"/>
+    <menuitem id="menu_car_model" name="Cars" parent="menu_car_root" sequence="1"/>
+
+    <!-- Action -->
+    <record id="action_car_model" model="ir.actions.act_window">
+        <field name="name">Car Models</field>
+        <field name="res_model">car.model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_master_data" model="ir.actions.act_window">
+        <field name="name">Master Data</field>
+        <field name="res_model">master.data</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_car_model_action"
+              name="Car Models"
+              parent="menu_car_model"
+              action="action_car_model" sequence="2"/>
+    <menuitem id="menu_master_data_action" name="Products" parent="menu_car_root"
+              action="action_master_data" sequence="3"/>
+    <record id="action_car_model_wizard_manual" model="ir.actions.act_window">
+        <field name="name">Car Wizard</field>
+        <field name="res_model">car.wizard</field> <!-- your wizard model -->
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Define the menu item that uses the above action -->
+    <menuitem id="menu_car_model_wizard"
+              name="Car Wizard"
+              parent="menu_car_model"
+              action="action_car_model_wizard_manual"
+              sequence="4"/>
+    <menuitem id="menu_garage_cars" name="Garage Cars" parent="menu_car_root" sequence="2"/>
+
+    <!-- Action -->
+    <record id="action_garage_car" model="ir.actions.act_window">
+        <field name="name">Garage Cars</field>
+        <field name="res_model">garage.car</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Submenu Action -->
+    <menuitem id="menu_garage_cars_action"
+              name="Garage Cars"
+              parent="menu_garage_cars"
+              action="action_garage_car"
+              sequence="5"/>
+</odoo>

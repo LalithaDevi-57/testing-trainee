@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_form_garage_car" model="ir.ui.view">
+        <field name="name">garage.car.form</field>
+        <field name="model">garage.car</field>
+        <field name="arch" type="xml">
+            <form string="Garage Car">
+                <header>
+                <button name="create_garage_car" string="Duplicate Car" type="object" class="btn-primary"/>
+                <button name="delete_car_button" string="Delete Car" type="object" class="btn-danger"/>
+                <button name="get_all_car_names" string="List Car Names" type="object" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="brand"/>
+                        <field name="partner_id"/>
+                        <field name="model_year"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

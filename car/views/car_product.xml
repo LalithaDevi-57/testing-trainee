@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_form_car" model="ir.ui.view">
+        <field name="name">car.form</field>
+        <field name="model">car.care</field>
+        <field name="arch" type="xml">
+            <form string="Car">
+                <header>
+                    <button name="create_product" type="object" string="Create Product" class="btn-primary"/>
+                    <button name="create_multiple_products" type="object" string="Multiple Products"
+                            class="btn-primary"/>
+                    <button name="create_contact" type="object" string="Create Contact" class="btn-primary"/>
+                    <button name="create_new_user" type="object" string="Create User" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_car" model="ir.actions.act_window">
+        <field name="name">Cars</field>
+        <field name="res_model">car.care</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_car" name="Car Product" parent="menu_car_model" action="action_car" sequence="5"/>
+</odoo>

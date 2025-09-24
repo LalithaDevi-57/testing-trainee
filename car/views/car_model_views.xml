@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_tree_car_model" model="ir.ui.view">
+        <field name="name">car.model.tree</field>
+        <field name="model">car.model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="brand"/>
+                <field name="model_year"/>
+                <field name="price"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_form_car_model" model="ir.ui.view">
+        <field name="name">car.model.form</field>
+        <field name="model">car.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_fill" type="object" string="Fill"
+                            class="btn-primary" invisible="state == 'done'"/>
+                    <button name="import_master_data_lines" string="Import Products"
+                            type="object" class="btn-primary"/>
+                    <button name="lock_and_archive" string="Archive"
+                            type="object" class="btn-primary"/>
+                    <button name="open_car_wizard" string="pop"
+                            type="object" class="btn-primary"/>
+                    <button name="create_garage_car" string="Duplicate Car" type="object"
+                            class="btn-primary"/>
+                    <button name="delete_car" string="Delete Car " type="object" class="btn-danger"/>
+                    <button name="get_all_car_names" string="List Car Names" type="object" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="oe_class">
+                        <h1>
+                            <field name="sequence_no"/>
+                        </h1>
+
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" readonly="state=='done'"/>
+                            <field name="brand" readonly="state=='done'"/>
+                            <field name="model_year" readonly="state=='done'"/>
+                            <field name="car_id"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="price" readonly="state=='done'"/>
+                            <field name="description" readonly="state=='done'"/>
+                            <field name="currency_id" readonly="state=='done'"/>
+                            <field name="total_amount" readonly="1"/>
+                            <field name="is_locked"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Products" invisible="is_locked == True ">
+                            <field name="line_ids" readonly="state=='done'">
+                                <tree editable="bottom">
+                                    <field name="product_name"/>
+                                    <field name="quantity"/>
+                                    <field name="price"/>
+                                    <field name="total" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_master_data_form" model="ir.ui.view">
+        <field name="name">master.data.form</field>
+        <field name="model">master.data</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="quantity"/>
+                        <field name="price"/>
+                        <field name="total" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
