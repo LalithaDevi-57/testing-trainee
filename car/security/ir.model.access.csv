@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_car_model,access.car.model,model_car_model,,1,1,1,1
+access_car_line,access.car.line,model_car_line,,1,1,1,1
+access_master_data_user,access.master.data.user,model_master_data,,1,1,1,1
+access_archived_car_model_user,access_archived_car_model_user,model_archived_car_model,base.group_user,1,0,1,0
+access_archived_car_line_user,access_archived_car_line_user,model_archived_car_line,base.group_user,1,0,1,0
+access_car_wizard_user,access_car_wizard_user,model_car_wizard,base.group_user,1,1,1,1
+access_care_user,access_care_user,model_car_care,,1,1,1,1
+access_garage_car_user,garage.car user,model_garage_car,,1,1,1,1
+

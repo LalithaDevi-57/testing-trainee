@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_res_config_settings_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.inherit.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <group string="My Custom Settings">
+                    <field name="custom_char"/>
+                    <field name="custom_bool"/>
+                    <field name="custom_date"/>
+                    <field name="custom_float"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_res_config_settings_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.inherit.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='languages']" position="after">
+
+                <div class="app_settings_block"
+                     data-string="My Module Settings"
+                     string="My Module Settings"
+                     name="my_module_settings">
+
+                    <h2>My Module Configuration</h2>
+
+
+                    <div class="row mt16 o_settings_container">
+                        <setting id="mark_temp">
+                            <div class="col-12 col-lg-6">
+
+                                <div class="form-group">
+                                    <label for="enable_feature"/>
+                                    <field name="enable_feature" class="fw-bold" nolabel="1"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="custom_message"/>
+                                    <field name="custom_message" class="fw-bold" nolabel="1"
+                                           placeholder="Message"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="custom_reports"/>
+                                    <field name="custom_reports" class="fw-bold" nolabel="1"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="custom_selection"/>
+                                    <field name="custom_selection" class="fw-bold" nolabel="1"/>
+                                </div>
+
+                            </div>
+                        </setting>
+                    </div>
+
+                </div>
+
+            </xpath>
+             <xpath expr="//div[@id='companies']" position="after">
+                <div id="second_settings_block">
+                    <block title="Second Module Settings" name="second_module_settings">
+                        <setting id="custom_message_setting" string="Custom Message">
+                            <field name="custom_message"/>
+                        </setting>
+                        <setting id="custom_selection_setting" string="Custom Selection">
+                            <field name="custom_selection"/>
+                            <div class="form-group">
+                                    <label for="custom_reports"/>
+                                    <field name="custom_reports" class="fw-bold" nolabel="1"/>
+                                </div>
+                        </setting>
+                    </block>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
