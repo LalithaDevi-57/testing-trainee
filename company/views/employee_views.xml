@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <!-- Form View with 3 Tabs -->
     <record id="view_office_employee_form" model="ir.ui.view">
         <field name="name">office.employee.form</field>
         <field name="model">office.employee</field>
@@ -39,8 +39,6 @@
             </form>
         </field>
     </record>
-
-    <!-- Tree View -->
     <record id="view_office_employee_tree" model="ir.ui.view">
         <field name="name">office.employee.tree</field>
         <field name="model">office.employee</field>
@@ -53,8 +51,6 @@
             </tree>
         </field>
     </record>
-
-    <!-- Search View -->
     <record id="view_office_employee_search" model="ir.ui.view">
         <field name="name">office.employee.search</field>
         <field name="model">office.employee</field>

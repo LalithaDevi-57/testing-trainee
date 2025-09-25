@@ -1,5 +1,8 @@
-from odoo import models, fields,api
-from odoo.exceptions import UserError,ValidationError
+import re
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
+
+
 
 class OfficeEmployee(models.Model):
     _name = "office.employee"
@@ -13,12 +16,10 @@ class OfficeEmployee(models.Model):
     join_data = fields.Date(string="Join Date")
     employee_file = fields.Binary(string="Upload File")
     employee_file_name = fields.Char(string="File Name")
-
     project_ids = fields.One2many("office.project", "employee_id", string="Projects")
 
     @api.constrains('email')
     def _check_email_format(self):
-        email_pattern = r"[^@]+@[^@]+\.[^@]+"
         for record in self:
-            if record.email and not re.match(email_pattern, record.email):
-                raise ValidationError("Invalid email format: %s" % record.email)
+            if record.email and not re.match(r"[^@]+@[^@]+\.[^@]+", record.email):
+                raise ValidationError("Invalid email format!")

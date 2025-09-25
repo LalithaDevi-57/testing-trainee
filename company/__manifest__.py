@@ -21,6 +21,7 @@
         'views/user_concern_views.xml',
         'views/user_login_menus.xml',
         'views/purchase_order.xml',
+        'views/user_menus.xml',
     ],
     'installable': True,
     'application': True,

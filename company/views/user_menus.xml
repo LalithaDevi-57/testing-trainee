@@ -21,10 +21,10 @@
                         <field name="name"/>
                         <field name="description"/>
                     </group>
-                    <footer>
-                        <button name="action_mark_done" string="Mark Done" type="object" class="btn-primary"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
-                    </footer>
+<!--                    <footer>-->
+<!--                        <button name="action_mark_done" string="Mark Done" type="object" class="btn-primary"/>-->
+<!--                        <button string="Cancel" class="btn-secondary" special="cancel"/>-->
+<!--                    </footer>-->
                 </sheet>
             </form>
         </field>
@@ -35,8 +35,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <!-- Optional: Create a parent menu if not exists -->
-    <menuitem id="menu_office_root" name="Office"/>
+<!--    <menuitem id="menu_office_root" name="Office"/>-->
 
     <menuitem id="menu_user_menus" name="User Menus"
               action="action_user_menus" parent="menu_office_root" sequence="20"/>

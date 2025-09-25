@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data noupdate="1">
-        <!-- Partner -->
         <record id="partner_lally" model="res.partner">
             <field name="name">Lally</field>
         </record>
-
-        <!-- User: Lally -->
         <record id="user_lally" model="res.users">
             <field name="name">Lally</field>
             <field name="login">lally</field>

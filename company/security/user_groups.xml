@@ -4,18 +4,15 @@
         <field name="name">Access Departments Menu</field>
         <field name="category_id" ref="base.module_category_hidden"/>
     </record>
-
-    <!-- Security group for Employees -->
     <record id="group_menu_employees" model="res.groups">
         <field name="name">Access Employees Menu</field>
         <field name="category_id" ref="base.module_category_hidden"/>
     </record>
-
-    <!-- Security group for Projects -->
     <record id="group_menu_projects" model="res.groups">
         <field name="name">Access Projects Menu</field>
         <field name="category_id" ref="base.module_category_hidden"/>
     </record>
+    <menuitem id="menu_office_root" name="Office" sequence="1"/>
 
     <menuitem id="menu_office_clients"
               name="Departments"

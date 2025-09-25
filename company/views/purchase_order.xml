@@ -5,18 +5,13 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
-            <!-- Hidden fields -->
+
             <xpath expr="//sheet" position="inside">
                 <field name="approved" invisible="1"/>
                 <field name="show_approve_button" invisible="1"/>
                 <field name="show_confirm_button" invisible="1"/>
-
             </xpath>
-
-            <!-- Header buttons -->
             <xpath expr="//header/button[@name='button_confirm']" position="replace">
-
-                <!-- Approve Button -->
                 <button name="action_approve"
                         type="object"
                         string="Approve"
@@ -28,6 +23,18 @@
                         class="btn-success"
                         invisible="not show_confirm_button"/>
             </xpath>
+            <!--            <xpath expr="//button[@name='button_confirm']" position="attributes">-->
+            <!--                <attribute name="invisible">[('approved_button_visible','=',True)]</attribute>-->
+            <!--            </xpath>-->
+
+            <!--            &lt;!&ndash; Add Approve button (visible only when amount > 5000) &ndash;&gt;-->
+            <!--            <xpath expr="//header" position="inside">-->
+            <!--                <button name="action_approve_po"-->
+            <!--                        string="Approve"-->
+            <!--                        type="object"-->
+            <!--                        class="btn-primary"-->
+            <!--                        invisible="[('approved_button_visible','=',False)]"/>-->
+            <!--            </xpath>-->
 
             <xpath expr="//header/button[@name='button_confirm']" position="attributes">
                 <attribute name="invisible">(state in ['draft','purchase']or approved)</attribute>
@@ -44,3 +51,5 @@
         </field>
     </record>
 </odoo>
+
+
