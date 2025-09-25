@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mobile_model,Mobile Model,model_mobile_model,base.group_user,1,1,1,1
+access_mobile_product_line,Mobile Product Line,model_mobile_product_line,base.group_user,1,1,1,1
+access_mobile_archive,Mobile Archive,model_mobile_archive,base.group_user,1,1,1,1
+access_mobile_archive_product_line,Archived Mobile Product Line,model_mobile_archive_product_line,base.group_user,1,1,1,1
+access_mobile_consumer_bill,Mobile Consumer Bill,model_mobile_consumer_bill,base.group_user,1,1,1,1
+access_product_master_data,Product Master Data,model_product_master_data,base.group_user,1,1,1,1
+access_mobile_consumer_bill_wizard,access.mobile.consumer.bill.wizard,model_mobile_consumer_bill_wizard,base.group_user,1,1,1,1

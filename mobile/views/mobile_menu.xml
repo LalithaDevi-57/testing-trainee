@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_mobile_model" model="ir.actions.act_window">
+        <field name="name">Mobile Models</field>
+        <field name="res_model">mobile.model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+     <record id="action_mobile_archive" model="ir.actions.act_window">
+        <field name="name">Mobile Archives</field>
+        <field name="res_model">mobile.archive</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_mobile_archive"
+              name="Mobile Archives"
+              parent="mobile_model_menu_root"
+              action="action_mobile_archive"
+              sequence="3"/>
+
+    <!-- Menu -->
+    <menuitem id="mobile_model_menu_root" name="Mobile Management"/>
+    <menuitem id="mobile_model_menu" name="Mobile Models" parent="mobile_model_menu_root"
+              sequence="10"/>
+    <menuitem id="mobile_model_submenu" name="All Models"
+              parent="mobile_model_menu"
+              action="action_mobile_model"
+              sequence="1"/>
+
+        <!-- Action -->
+        <record id="action_product_master_data" model="ir.actions.act_window">
+            <field name="name">Product Master</field>
+            <field name="res_model">product.master.data</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Submenu -->
+    <menuitem
+        id="menu_product_master_data"
+        name="Product Master"
+        parent="mobile_model_menu_root"
+        action="action_product_master_data"
+        sequence="2"/>
+    <menuitem id="menu_mobile_consumer_bill_wizard"
+              name="Generate Consumer Bill" parent="mobile_model_menu_root"
+              action="action_mobile_consumer_bill_wizard" sequence="5"/>
+</odoo>

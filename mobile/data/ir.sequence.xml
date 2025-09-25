@@ -1,0 +1,10 @@
+<odoo>
+    <record id="seq_mobile_consumer_bill" model="ir.sequence">
+        <field name="name">Mobile Consumer</field>
+        <field name="code">mobile.model</field>
+        <field name="prefix">NHCL/</field>
+        <field name="padding">5</field>
+        <field name="implementation">standard</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

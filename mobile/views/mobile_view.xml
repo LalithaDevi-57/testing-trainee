@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Mobile Model Tree View -->
+    <record id="view_mobile_model_tree" model="ir.ui.view">
+        <field name="name">mobile.model.tree</field>
+        <field name="model">mobile.model</field>
+        <field name="arch" type="xml">
+            <tree string="Mobile Models">
+                <field name="name"/>
+                <field name="brand"/>
+                <field name="release_date"/>
+                <field name="total_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Mobile Model Form View -->
+    <record id="view_mobile_model_form" model="ir.ui.view">
+        <field name="name">mobile.model.form</field>
+        <field name="model">mobile.model</field>
+        <field name="arch" type="xml">
+            <form string="Mobile Model">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="fill,done"
+                           statusbar_colors="{'done': 'success'}"/>
+                    <button name="action_mark" type="object" string="Mark as Done"
+                            class="btn-primary" invisible="state == 'done'"/>
+                    <button name="action_copy_to_archive" type="object" string="Archive"
+                            class="btn-primary"/>
+                    <button name="action_load_products" type="object" string="Load Products"
+                            class="btn-primary"/>
+<!--                    <button name="action_success" type="object" string="Generate Consumer Bill"-->
+<!--                            class="btn-primary" />-->
+                </header>
+                <sheet>
+                    <div class="oe_class">
+                        <h1>
+                            <field name="sequence_no"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="name" readonly="state=='done'"/>
+                        <field name="brand" readonly="state=='done'"/>
+                        <field name="release_date" readonly="state=='done'"/>
+                        <field name="today_date" readonly="state =='done'"/>
+                        <field name="description" readonly="state=='done'"/>
+                    </group>
+                    <notebook>
+                        <page string="Products">
+                            <field name="product_line_ids" readonly="state=='done'">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price"/>
+                                    <field name="total" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Mobile Consumer Bill Tree View -->
+    <record id="view_mobile_consumer_bill_tree" model="ir.ui.view">
+        <field name="name">mobile.consumer.bill.tree</field>
+        <field name="model">mobile.consumer.bill</field>
+        <field name="arch" type="xml">
+            <tree string="Consumer Bills">
+                <field name="mobile_id"/>
+                <field name="quantity"/>
+                <field name="price"/>
+                <field name="total"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Mobile Consumer Bill Form View -->
+    <record id="view_mobile_consumer_bill_form" model="ir.ui.view">
+        <field name="name">mobile.consumer.bill.form</field>
+        <field name="model">mobile.consumer.bill</field>
+        <field name="arch" type="xml">
+            <form string="Consumer Bill">
+                <sheet>
+                    <group>
+                        <field name="mobile_id" readonly="1"/>
+                        <field name="product_id" readonly="[('state', '=', 'confirmed')]"/>
+                        <field name="quantity" readonly="[('state', '=', 'confirmed')]"/>
+                        <field name="price" readonly="[('state', '=', 'confirmed')]"/>
+                        <field name="total" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_product_master_tree" model="ir.ui.view">
+        <field name="name">product.master.data.tree</field>
+        <field name="model">product.master.data</field>
+        <field name="arch" type="xml">
+            <tree string="Product Master">
+                <field name="name"/>
+                <field name="quantity"/>
+                <field name="price"/>
+                <field name="total"/>
+                <field name="release_date"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_mobile_archive_tree" model="ir.ui.view">
+        <field name="name">mobile.archive.tree</field>
+        <field name="model">mobile.archive</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence_no"/>
+                <field name="name"/>
+                <field name="brand"/>
+                <field name="release_date"/>
+                <field name="product_id"/>
+                <field name="total_amount"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_mobile_archive_form" model="ir.ui.view">
+        <field name="name">mobile.archive.form</field>
+        <field name="model">mobile.archive</field>
+        <field name="arch" type="xml">
+            <form string="Mobile Archive">
+                <sheet>
+                    <group>
+                        <field name="sequence_no"/>
+                        <field name="name"/>
+                        <field name="brand"/>
+                        <field name="release_date"/>
+                        <field name="product_id"/>
+                        <field name="total_amount"/>
+                    </group>
+                    <notebook>
+                        <page string="Bills">
+                            <field name="bill_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price"/>
+                                    <field name="total"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--    <record id="approval_request_line_tree_inherit" model="ir.ui.view">-->
+    <!--        <field name="name">approval.request</field>-->
+    <!--        <field name="model">approval.request</field>-->
+    <!--        <field name="inherit_id" ref="approvals.approval_request_view_form"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <xpath expr="//field[@name='category_id']" position="after">-->
+    <!--                <field name="happy"/>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+<!--    <record id="approval_request_line_po_line" model="ir.ui.view">-->
+<!--        <field name="name">approval.request</field>-->
+<!--        <field name="model">approval.product.line</field>-->
+<!--        <field name="inherit_id" ref="approvals.approval_product_line_view_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='product_id']" position="after">-->
+<!--                <field name="happy"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+</odoo>
