@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<template id="road">
+    <t t-if="not company">
+        <t t-if="company_id">
+            <t t-set="company" t-value="company_id"/>
+        </t>
+        <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+            <t t-set="company" t-value="o.company_id.sudo()"/>
+        </t>
+    </t>
+    <div class="header">
+        <div class="row">
+            <div class="col-4" style="display: flex; align-items: flex-start; margin-top: 0;">
+                <t t-if="company.logo">
+                    <img t-att-src="image_data_uri(company.logo)" alt="Logo"
+                         style="width:150px; max-height:500px; "/>
+                </t>
+            </div>
+            <div class="col-4" style="font-size:45px;display: flex; align-items: flex-center; margin-top: 0;">
+                <t t-esc="company.name"/>
+            </div>
+            <div class="4"
+                 style="text-align:left; font-size:20px;display: flex; align-items: flex-bottom; margin-top: 0;">
+                <t t-esc="company.street or ''"/>
+                <t t-esc="company.street2 or ''"/>
+                <br/>
+                <t t-esc="company.city or ''"/>
+                -
+                <t t-esc="company.zip or ''"/>
+                <t t-esc="company.state_id.name or ''"/>,
+                <t t-esc="company.country_id.name or ''"/>
+            </div>
+        </div>
+    </div>
+    <div class="footer"
+         style="font-size:10px; text-align:center; border-top:1px solid #ccc; padding-top:5px; margin-top:20px;">
+        <p>
+            <t t-esc="company.name"/>
+            |
+            <t t-esc="company.email or ''"/>
+            |
+            <t t-esc="company.phone or ''"/>
+        </p>
+        <p>Page
+            <span class="page"/>
+        </p>
+    </div>
+
+    <!-- Main Report Content + Article -->
+    <div class="article">
+        <t t-raw="0"/>
+
+        <!-- Static Article / Notes Section -->
+        <div class="static-article" style="margin-top:30px; font-size:12px; color:#333;">
+            <h4>Important Notes</h4>
+            <ul style="list-style-type:disc; margin-left:20px;">
+                <li>All invoice amounts are calculated with applicable taxes.</li>
+                <li>Payment is due by the due date mentioned above.</li>
+                <li>Please contact accounts for any clarification regarding this invoice.</li>
+            </ul>
+        </div>
+    </div>
+</template>
+<template id="report_invoice_custom">
+    <t t-call="custom_invoice.road">
+        <t t-foreach="docs" t-as="o">
+            <main>
+                <div class="row">
+                    <div class="col-12">
+                        <h3 style="text-align:center;">Customer Invoice Tax</h3>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 0; padding: 0;">
+                    <!-- First Table -->
+                    <table class="table table-sm o_main_table"
+                           style="width:100%; border:1px solid #000; border-collapse: collapse; margin: 0; padding: 0;">
+                        <tr>
+                            <td style="border:1px solid #000; padding:5px; width:50%;">
+                                <p>
+                                    <strong>Customer:</strong>
+                                    <span t-field="o.partner_id.name"/>
+                                </p>
+                                <p>
+                                    <strong>Invoice Date:</strong>
+                                    <span t-field="o.invoice_date"/>
+                                </p>
+                                <p>
+                                    <strong>Due Date:</strong>
+                                    <span t-field="o.invoice_date_due"/>
+                                </p>
+                                <p>
+                                    <strong>Place of Supply:</strong>
+                                    <span t-field="o.l10n_in_state_id"/>
+                                </p>
+                            </td>
+                            <td style="border:1px solid #000; padding:5px; width:50%;">
+                                <p>
+                                    <strong>Invoice No:</strong>
+                                    <span t-field="o.name"/>
+                                </p>
+                                <p>
+                                    <strong>Payment Ref:</strong>
+                                    <span t-field="o.payment_reference"/>
+                                </p>
+                                <p>
+                                    <strong>Journal:</strong>
+                                    <span t-field="o.journal_id.name"/>
+                                </p>
+                                <p>
+                                    <strong>GST Treatment:</strong>
+                                    <span t-esc="o.l10n_in_gst_treatment"/>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Invoice Lines Table -->
+                    <t t-foreach="docs" t-as="o">
+                        <table class="table table-bordered"
+                               style="border-collapse: collapse; width: 100%; border: 1px solid black; margin: 0; padding: 0;">
+                            <thead>
+                                <!-- First row: main headers -->
+                                <tr style="background:#eee;">
+                                    <th rowspan="2" style="border:1px solid black;">Product</th>
+                                    <th rowspan="2" style="border:1px solid black;">Description</th>
+                                    <th rowspan="2" style="border:1px solid black;" class="text-right">Qty</th>
+                                    <th rowspan="2" style="border:1px solid black;" class="text-right">Price</th>
+                                    <th rowspan="2" style="border:1px solid black;" class="text-right">Subtotal</th>
+                                    <th colspan="2" style="border:1px solid black;" class="text-center">CGST</th>
+                                    <th colspan="2" style="border:1px solid black;" class="text-center">SGST</th>
+                                </tr>
+
+                                <!-- Second row: sub-headers for CGST and SGST -->
+                                <tr style="background:#eee;">
+                                    <th style="border:1px solid black; text-align:center;">Rate</th>
+                                    <th style="border:1px solid black; text-align:center;">Amount</th>
+                                    <th style="border:1px solid black; text-align:center;">Rate</th>
+                                    <th style="border:1px solid black; text-align:center;">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.invoice_line_ids" t-as="line" style="border:1px solid black;">
+                                    <td style="border:1px solid black;">
+                                        <span t-field="line.product_id.name"/>
+                                    </td>
+                                    <td style="border:1px solid black;">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <td class="text-right" style="border:1px solid black;">
+                                        <span t-field="line.quantity"/>
+                                    </td>
+                                    <td class="text-right" style="border:1px solid black;">
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+                                    <td class="text-right" style="border:1px solid black;">
+                                        <span t-field="line.price_subtotal"/>
+                                    </td>
+                                    <t t-foreach="line.tax_ids" t-as="tax">
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <t t-set="cgst_tax"
+                                               t-value="tax.filtered(lambda tax: 'GST' in tax.name.upper())"/>
+                                            <t t-set="cgst_rate"
+                                               t-value="round((cgst_tax[0].amount / 2 / 100.0) * line.price_subtotal, 2)"/>
+                                            <span t-esc="cgst_rate"/>
+                                        </td>
+
+                                        <!-- CGST Amount Column -->
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <t t-if="cgst_tax">
+                                                <t t-set="cgst_amount"
+                                                   t-value="(cgst_tax[0].amount / 100.0) * line.price_subtotal"/>
+                                                <span t-esc="cgst_amount"/>
+                                            </t>
+                                        </td>
+
+                                        <!-- SGST Rate Column -->
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <t t-set="sgst_tax"
+                                               t-value="line.tax_ids.filtered(lambda tax: 'GST' in tax.name.upper())"/>
+                                            <t t-if="sgst_tax">
+                                                <t t-set="sgst_rate"
+                                                   t-value="round((sgst_tax[0].amount / 2 / 100.0) * line.price_subtotal, 2)"/>
+                                                <span t-esc="sgst_rate"/>
+                                            </t>
+                                        </td>
+
+                                        <!-- SGST Amount Column -->
+                                        <td class="text-right" style="border:1px solid black;">
+                                            <t t-if="sgst_tax">
+                                                <t t-set="sgst_amount"
+                                                   t-value="(sgst_tax[0].amount / 100.0) * line.price_subtotal"/>
+                                                <span t-esc="sgst_amount"/>
+                                            </t>
+                                        </td>
+                                    </t>
+                                </tr>
+                                <tr style="font-weight:bold; background:#f7f7f7;">
+                                    <td colspan="5" class="text-right" style="border:1px solid black;">Total:</td>
+                                    <td class="text-right" style="border:1px solid black;">
+                                        <span t-esc="o.amount_total"/>
+                                    </td>
+                                    <td colspan="4" style="border:1px solid black;"></td>
+                                </tr>
+                                <tr style="font-weight:bold; background:#f7f7f7;">
+                                    <td colspan="6" class="text-left" style="border:1px solid black;">Amount in
+                                        Words:
+                                        <span t-esc="o.amount_in_words or ''"/>
+                                    </td>
+                                    <td colspan="4" style="border:1px solid black;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                </div>
+            </main>
+        </t>
+    </t>
+</template>
+    <record id="paperformat_invoice_custom" model="report.paperformat">
+        <field name="name">Invoice Custom PaperFormat</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">25</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">15</field>
+        <field name="margin_right">15</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
+    <record id="action_report_customer_invoice_custom_demo" model="ir.actions.report">
+        <field name="name">Customer Invoice Custom Report</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_invoice.report_invoice_custom</field>
+        <field name="report_file">custom_invoice.report_invoice_custom</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="custom_invoice.paperformat_invoice_custom"/>
+        <field name="print_report_name">'Invoice_%s_%s' % (object.name, object.partner_id.name)</field>
+    </record>
+</odoo>
