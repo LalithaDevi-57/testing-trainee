@@ -1,5 +1,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError
+import logging
+_logger = logging.getLogger(__name__)
 
 class CompanyPurchase(models.Model):
     _name = 'company.purchase'
@@ -12,7 +14,6 @@ class CompanyPurchase(models.Model):
     real_purchase_order_id = fields.Many2one('purchase.order', string='Real Purchase Order', readonly=True)
 
     def action_create_real(self):
-        """This method creates a real purchase.order"""
         PurchaseOrder = self.env['purchase.order']
         PurchaseOrderLine = self.env['purchase.order.line']
 
@@ -46,28 +47,25 @@ class CompanyPurchaseLine(models.Model):
     quantity = fields.Float(string='Quantity', default=1.0)
     price_unit = fields.Float(string='Unit Price')
 
-
-class PurchaseOrder(models.Model):
+class PurchaseOrder3(models.Model):
     _inherit = 'purchase.order'
 
-
-    def button_confirm(self):
-        res = super(PurchaseOrder, self).button_confirm()
+    def action_copy_to_company_purchase(self):
         for order in self:
-            existing = self.env['company.purchase'].search([('name', '=', order.name)], limit=1)
-            if not existing:
-                self.env['company.purchase'].create({
-                    'name': order.name,
-                    'partner_id': order.partner_id.id,
-                    'date_order': order.date_order,
-                    'line_ids': [(0, 0, {
-                        'product_id': line.product_id.id,
-                        'quantity': line.product_qty,
-                        'price_unit': line.price_unit,
-                        'name': line.name,
-                    }) for line in order.order_line]
-                })
-        return res
+            _logger.info(f"Trying to copy PO: {order.name}")
+            # Or print("Trying to copy PO:", order.name)
+
+            self.env['company.purchase'].create({
+                'name': order.name,
+                'partner_id': order.partner_id.id,
+                'date_order': order.date_order,
+                'line_ids': [(0, 0, {
+                    'product_id': line.product_id.id,
+                    'quantity': line.product_qty,
+                    'price_unit': line.price_unit,
+                    'name': line.name,
+                }) for line in order.order_line]
+            })
 
     @api.model
     def create(self, vals):
@@ -75,5 +73,4 @@ class PurchaseOrder(models.Model):
         sequence = self.env['ir.sequence'].next_by_code('purchase.order') or '/'
         if partner:
             vals['name'] = f"{sequence} - {partner.name}"
-        return super(PurchaseOrder, self).create(vals)
-
+        return super(PurchaseOrder3, self).create(vals)

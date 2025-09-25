@@ -23,6 +23,7 @@ class PurchaseOrder(models.Model):
         ondelete={"approved": "set default"},
     )
     approved = fields.Boolean(string="Approved", default=False)
+
     @api.depends("amount_total", "approved")
     def _compute_show_approve_button(self):
         for order in self:
@@ -37,6 +38,7 @@ class PurchaseOrder(models.Model):
 
     show_approve_button = fields.Boolean(
         string="Show Approve Button",
+
         compute="_compute_buttons"
     )
     show_confirm_button = fields.Boolean(
@@ -69,3 +71,31 @@ class PurchaseOrder(models.Model):
             if order.state == "approved":
                 order.state = "purchase"
         return super().button_confirm()
+
+
+# #
+#     approved_button_visible = fields.Boolean(
+#         compute="_compute_approved_button_visible",
+#         string="Approved Button Visible"
+#     )
+#
+#     @api.depends('amount_total')
+#     def _compute_approved_button_visible(self):
+#         for order in self:
+#             order.approved_button_visible = order.amount_total > 5000
+#
+#     def action_approve_po(self):
+#      for order in self:
+#         order.state = 'approved' # Or create a new state if needed
+#
+#     def action_approve(self):
+#         for order in self:
+#             if order.amount_total >= 5000 and not order.approved:
+#                 order.approved = True
+#                 order.write({"state": "approved"})
+#                 order.message_post(body="Purchase Order has been approved.")
+
+
+
+
+

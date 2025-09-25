@@ -33,46 +33,19 @@
             </form>
         </field>
     </record>
-    <record id="view_purchase_order_form_inherit_approve_button" model="ir.ui.view">
-        <field name="name">purchase.order.form.inherit.approve.button</field>
-        <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.purchase_order_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//sheet" position="inside">
-                <field name="approved" invisible="1"/>
-                <field name="show_approve_button" invisible="1"/>
-                <field name="show_confirm_button" invisible="1"/>
-            </xpath>
+    <record id="view_purchase_order_form_inherit_custom_button" model="ir.ui.view">
+            <field name="name">purchase.order.form.inherit.custom.button</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='button_cancel']" position="after">
+                    <button name="action_copy_to_company_purchase"
+                            string="Copy to Company "
+                            type="object"
+                            class="btn-white"
+                            invisible="state != 'purchase'"/>
+                </xpath>
 
-            <!-- Replace the Confirm button and put both Approve and Confirm with conditional attrs -->
-            <xpath expr="//header/button[@name='button_confirm']" position="replace">
-                <!-- Approve Button: visible only if show_approve_button = True -->
-                <button name="action_approve"
-                        type="object"
-                        string="Approve"
-                        class="btn-primary"
-                        invisible="not show_approve_button"
-                />
-                <!-- Confirm Button: visible only if show_confirm_button = True -->
-                <button name="button_confirm"
-                        type="object"
-                        string="Confirm Order"
-                        class="btn-success"
-                        invisible="not show_confirm_button"
-                />
-            </xpath>
-            <xpath expr="//header/button[@name='button_confirm']" position="attributes">
-                <attribute name="invisible">(state in['purchase'])</attribute>
-            </xpath>
-            <xpath expr="//header/button[@id='draft_confirm']" position="attributes">
-                <attribute name="invisible">(state in['draft','purchase']or approved)</attribute>
-            </xpath>
-
-            <xpath expr="//header/field[@name='state']" position="replace">
-                <field name="state" widget="statusbar"
-                       statusbar_visible="draft,sent,approved,purchase"
-                       statusbar_status="draft"/>
-            </xpath>
-        </field>
-    </record>
+            </field>
+        </record>
 </odoo>

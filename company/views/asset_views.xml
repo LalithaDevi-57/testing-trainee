@@ -26,9 +26,10 @@
                             </group>
                         </page>
                         <page string="Notes">
-<!--                            <group>-->
-<!--                                <label string="Extra notes or description can be added here." class="o_form_label"/>-->
-<!--                            </group>-->
+                             <group>
+                                <field name="purchase_date"/>
+                                <field name="value"/>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>
