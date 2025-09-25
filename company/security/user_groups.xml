@@ -12,31 +12,5 @@
         <field name="name">Access Projects Menu</field>
         <field name="category_id" ref="base.module_category_hidden"/>
     </record>
-    <menuitem id="menu_office_root"
-              name="Office"
-              sequence="1"
-              groups="base.group_user"/>
-
-    <menuitem id="menu_office_clients"
-              name="Departments"
-              parent="menu_office_root"
-              action="action_office_department"
-              sequence="8"
-              groups="company.group_menu_departments"/>
-
-    <menuitem id="menu_office_income"
-              name="Employees"
-              parent="menu_office_root"
-              action="action_office_employee"
-              sequence="9"
-              groups="company.group_menu_employees"/>
-
-    <menuitem id="menu_office_development"
-              name="Projects"
-              parent="menu_office_root"
-              action="action_office_project"
-              sequence="10"
-              groups="company.group_menu_projects"/>
-
-
+    
 </odoo>
